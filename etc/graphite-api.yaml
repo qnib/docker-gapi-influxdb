@@ -1,0 +1,27 @@
+search_index: /var/lib/graphite/index
+finders:
+  #- graphite_api.finders.whisper.WhisperFinder
+  - graphite_influxdb.InfluxdbFinder
+functions:
+  - graphite_api.functions.SeriesFunctions
+  - graphite_api.functions.PieFunctions
+
+influxdb:
+   host: influxdb.service.consul
+   port: 8086
+   user: carbon
+   pass: carbon
+   db:   carbon
+   # be sure to update this to describe the resolutions of your metrics
+   # see https://github.com/vimeo/graphite-influxdb#about-the-retention-schemas
+   schema:
+     - ['*', 5]
+statsd:
+    host: statsd.service.consul
+cache:
+    type: 'filesystem'
+    dir: '/tmp/graphite-api-cache'
+#whisper:
+#  directories:
+#    - /var/lib/carbon/whisper
+time_zone: Europe/Berlin
