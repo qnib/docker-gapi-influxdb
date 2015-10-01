@@ -3,8 +3,8 @@ consul:
   environment:
   - DC_NAME=dc1
   ports:
-   - "8500:8500"
-   - "2003:2003"
+   - "18500:8500"
+   - "12003:2003"
   dns: 127.0.01
   hostname: consul
   privileged: true
@@ -14,8 +14,8 @@ influxdb:
   environment:
   - DC_NAME=dc1
   ports:
-   - "8083:8083"
-   - "8086:8086"
+   - "18083:8083"
+   - "18086:8086"
   dns: 127.0.0.1
   hostname: influxdb
   links:
@@ -37,14 +37,3 @@ statsd:
   hostname: statsd
   privileged: true
 
-gapi:
-  build: .
-  ports:
-   - "80:80"
-  environment:
-  - DC_NAME=dc1
-  dns: 127.0.0.1
-  hostname: gapi
-  links:
-  - influxdb:influxdb
-  - consul:consul
